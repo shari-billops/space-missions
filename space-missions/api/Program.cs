@@ -20,9 +20,9 @@ app.UseCors();
 
 // --- Filter metadata endpoints (used by dashboard dropdowns) ---
 
-app.MapGet("/api/companies", (MissionService svc) => svc.GetCompanies());
-app.MapGet("/api/statuses/rocket", (MissionService svc) => svc.GetRocketStatuses());
-app.MapGet("/api/statuses/mission", (MissionService svc) => svc.GetMissionStatuses());
+app.MapGet("/api/companies", (MissionService svc) => svc.getCompanies());
+app.MapGet("/api/statuses/rocket", (MissionService svc) => svc.getRocketStatuses());
+app.MapGet("/api/statuses/mission", (MissionService svc) => svc.getMissionStatuses());
 
 // --- Full mission list with optional filters (used by dashboard table) ---
 
@@ -34,7 +34,7 @@ app.MapGet("/api/missions", (
     string? startDate,
     string? endDate) =>
 {
-    var missions = svc.GetAll();
+    var missions = svc.getAll();
 
     if (!string.IsNullOrWhiteSpace(company))
         missions = missions.Where(m =>
