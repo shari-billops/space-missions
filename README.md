@@ -144,8 +144,94 @@ Company names are long strings that become unreadable on a vertical bar chart's 
 | HTTP client | Axios |
 
 ---
-## Unit and Integration Testing
-Unit tests 
+
+## Backend Unit and Integration Testing
+
+The backend includes separate .NET 8 test projects for unit tests and API integration tests. Run these commands from the repository root unless otherwise noted.
+
+### Run backend unit tests
+
+```bash
+dotnet test tests/SpaceMissions.UnitTests/SpaceMissions.UnitTests.csproj
+```
+
+### Run backend integration tests
+
+```bash
+dotnet test tests/SpaceMissions.Api.IntegrationTests/SpaceMissions.Api.IntegrationTests.csproj
+```
+
+Integration tests use `Microsoft.AspNetCore.Mvc.Testing` and `WebApplicationFactory` to start the Minimal API in memory and call the API endpoints through `HttpClient`.
+
+### Run all backend tests
+
+```bash
+dotnet test
+```
+
+### Run all backend tests with coverage
+
+Both test projects should reference `coverlet.collector` version `6.0.2`, which is compatible with .NET 8.
+
+```bash
+dotnet test --collect:"XPlat Code Coverage"
+```
+
+Coverage files are generated under each test project's `TestResults` directory as `coverage.cobertura.xml`.
+
+### Generate an HTML coverage report
+
+Install ReportGenerator if you do not already have it:
+
+```bash
+dotnet tool install -g dotnet-reportgenerator-globaltool
+```
+
+If it is already installed, update it:
+
+```bash
+dotnet tool update -g dotnet-reportgenerator-globaltool
+```
+
+Generate the combined coverage report:
+
+```bash
+reportgenerator \
+  -reports:"**/coverage.cobertura.xml" \
+  -targetdir:"coverage-report" \
+  -reporttypes:Html
+```
+
+Open the report on macOS:
+
+```bash
+open coverage-report/index.html
+```
+
+### Optional coverage script
+
+For repeatable local coverage runs, create a `coverage.sh` script at the repository root:
+
+```bash
+#!/bin/bash
+set -e
+
+dotnet test --collect:"XPlat Code Coverage"
+
+reportgenerator \
+  -reports:"**/coverage.cobertura.xml" \
+  -targetdir:"coverage-report" \
+  -reporttypes:Html
+
+open coverage-report/index.html
+```
+
+Make it executable and run it:
+
+```bash
+chmod +x coverage.sh
+./coverage.sh
+```
 
 ---
 
