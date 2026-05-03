@@ -36,6 +36,46 @@ The dashboard opens at **http://localhost:5173**.
 
 ---
 
+## Testing
+
+Tests live in `space-missions/client/src/__tests__/` and use **Jest**, **React Testing Library**, and **MSW** for API mocking.
+
+### Run all tests
+
+```bash
+cd space-missions/client
+npm test
+```
+
+### Run with coverage report
+
+```bash
+npm run test:coverage
+```
+
+Coverage is collected for all source files under `src/` (excluding `main.tsx`, type declarations, and test infrastructure). The threshold is set to **100%** — branches, functions, lines, and statements.
+
+### Test structure
+
+| File | What it covers |
+|---|---|
+| `missionsApi.test.ts` | All 9 API functions (direct call → MSW intercept) |
+| `FilterPanel.test.tsx` | Date-range validation, trim-on-blur, select/input onChange, min/max attributes |
+| `SummaryStats.test.tsx` | Loading, error, data, zero-total rate, filters-active indicator |
+| `MissionsTable.test.tsx` | Loading/error/empty/data states, sort cycling, pagination, null price, unknown status color |
+| `MissionStatusChart.test.tsx` | Loading/error/data, zero-count filter, unknown status color fallback |
+| `TopCompaniesChart.test.tsx` | Loading/error/data states |
+| `MissionsPerYearChart.test.tsx` | Loading/error/data states |
+| `App.test.tsx` | Full render, filter change, reset propagation |
+
+### How it works
+
+- **MSW** intercepts all `axios` HTTP calls at the network level — no mocking of the API module itself.
+- **Recharts** is replaced with a thin component mock so tests aren't blocked by `ResizeObserver` (unavailable in jsdom) and chart internals.
+- Each test file that exercises an error path uses `server.use(...)` to override the default handler for that test only; `afterEach` resets all overrides automatically.
+
+---
+
 ## Programmatic API Reference
 
 All grading functions are exposed as GET endpoints.
