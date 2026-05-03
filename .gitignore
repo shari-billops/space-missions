@@ -484,3 +484,22 @@ $RECYCLE.BIN/
 
 # claude files
 .claude/
+
+# Coverage reports
+coverage-report/
+coverage/
+
+# Test results (dotnet test output)
+TestResults/
+
+# Cobertura / coverage files
+*.coverage
+*.coveragexml
+coverage.cobertura.xml
+
+# ReportGenerator temp/output
+reportgenerator/
+
+# VS / Rider coverage artifacts (just in case)
+*.trx
+*.xml

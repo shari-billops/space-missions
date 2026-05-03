@@ -138,6 +138,9 @@ describe('MissionsTable', () => {
     await user.click(screen.getByRole('button', { name: 'Next →' }));
     await screen.findByText('Page 2 of 2');
     expect(screen.getByRole('button', { name: 'Next →' })).toBeDisabled();
+
+    await user.click(screen.getByRole('button', { name: '← Prev' }));
+    await screen.findByText('Page 1 of 2');
   });
 
   test('page size change updates pagination', async () => {
@@ -146,7 +149,7 @@ describe('MissionsTable', () => {
     await screen.findByText('Page 1 of 2');
 
     // Change to 100 per page → all 26 missions on 1 page
-    await user.selectOptions(screen.getByDisplayValue('25'), '100');
+    await user.selectOptions(screen.getByRole('combobox'), '100');
     await screen.findByText('Page 1 of 1');
   });
 });

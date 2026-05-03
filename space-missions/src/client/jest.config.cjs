@@ -6,7 +6,7 @@ module.exports = {
   setupFiles: ['<rootDir>/src/jestPolyfills.ts'],
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
   transform: {
-    '^.+\\.[jt]sx?$': ['babel-jest', { configFile: './babel.config.cjs' }],
+    '^.+\\.(mjs|[jt]sx?)$': ['babel-jest', { configFile: './babel.config.cjs' }],
   },
   moduleNameMapper: {
     '\\.css$': 'identity-obj-proxy',
@@ -22,7 +22,10 @@ module.exports = {
     '^@mswjs/interceptors/fetch$': '<rootDir>/node_modules/@mswjs/interceptors/lib/node/interceptors/fetch/index.cjs',
     '^@mswjs/interceptors/WebSocket$': '<rootDir>/node_modules/@mswjs/interceptors/lib/browser/interceptors/WebSocket/index.cjs',
   },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'mjs', 'json'],
+  transformIgnorePatterns: [
+    '/node_modules/(?!(@mswjs|msw|rettime|until-async|@open-draft)/)',
+  ],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/main.tsx',

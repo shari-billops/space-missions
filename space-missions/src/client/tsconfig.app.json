@@ -21,5 +21,14 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/__tests__",
+    "src/mocks",
+    "src/__mocks__",
+    "src/setupTests.ts",
+    "src/jestPolyfills.ts"
+  ]
 }

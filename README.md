@@ -144,6 +144,10 @@ Company names are long strings that become unreadable on a vertical bar chart's 
 | HTTP client | Axios |
 
 ---
+## Unit and Integration Testing
+Unit tests 
+
+---
 
 ## AI Tooling
 

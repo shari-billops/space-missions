@@ -88,3 +88,10 @@ app.MapGet("/api/getAverageMissionsPerYear", (MissionService svc, int startYear,
     svc.getAverageMissionsPerYear(startYear, endYear));
 
 app.Run();
+
+/// <summary>
+/// Added for integration testing; 
+/// Minimal API generates an internal Program class
+///  not accessible by integration testing
+/// </summary>
+public partial class Program { }
